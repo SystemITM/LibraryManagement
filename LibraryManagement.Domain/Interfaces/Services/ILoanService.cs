@@ -1,7 +1,7 @@
 ﻿using LibraryManagement.Domain.Entities;
 
 namespace LibraryManagement.Domain.Interfaces.Services;
-//Este servicio  manejará la lógica real del préstamo.
+//Este servicio  manejará la lógica real del préstamoo.
 public interface ILoanService
 {
     Task<IEnumerable<Loan>> GetAllAsync();
