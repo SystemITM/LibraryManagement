@@ -8,5 +8,9 @@ public interface IBookRepository : IGenericRepository<Book>
 
     Task<Book?> GetBookWithDetailsByIdAsync(int id);
 
+    Task<Book?> GetBookForUpdateAsync(int id);
+
     Task<bool> ExistsByIsbnAsync(string isbn, int? excludeBookId = null);
+
+    Task UpdateBookAuthorsAsync(int bookId, IEnumerable<int> authorIds);
 }

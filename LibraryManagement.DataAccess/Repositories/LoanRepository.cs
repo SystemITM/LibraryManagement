@@ -48,6 +48,12 @@ public class LoanRepository : GenericRepository<Loan>, ILoanRepository
             .FirstOrDefaultAsync(loan => loan.Id == id);
     }
 
+    public async Task<Loan?> GetLoanForUpdateAsync(int id)
+    {
+        return await _context.Loans
+            .FirstOrDefaultAsync(loan => loan.Id == id);
+    }
+
     public async Task<IEnumerable<Loan>> GetActiveLoansByMemberIdAsync(int memberId)
     {
         return await _context.Loans

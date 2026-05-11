@@ -42,6 +42,12 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .FirstOrDefaultAsync(book => book.Id == id);
     }
 
+    public async Task<Book?> GetBookForUpdateAsync(int id)
+    {
+        return await _context.Books
+            .FirstOrDefaultAsync(book => book.Id == id);
+    }
+
     public async Task<bool> ExistsByIsbnAsync(string isbn, int? excludeBookId = null)
     {
         var normalizedIsbn = isbn.Trim();
@@ -50,5 +56,26 @@ public class BookRepository : GenericRepository<Book>, IBookRepository
             .AnyAsync(book =>
                 book.Isbn == normalizedIsbn &&
                 (!excludeBookId.HasValue || book.Id != excludeBookId.Value));
+    }
+
+    public async Task UpdateBookAuthorsAsync(int bookId, IEnumerable<int> authorIds)
+    {
+        var currentRelations = await _context.BookAuthors
+            .Where(bookAuthor => bookAuthor.BookId == bookId)
+            .ToListAsync();
+
+        _context.BookAuthors.RemoveRange(currentRelations);
+
+        var newRelations = authorIds
+            .Distinct()
+            .Select(authorId => new BookAuthor
+            {
+                BookId = bookId,
+                AuthorId = authorId
+            })
+            .ToList();
+
+        await _context.BookAuthors.AddRangeAsync(newRelations);
+        await _context.SaveChangesAsync();
     }
 }
