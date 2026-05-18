@@ -5,6 +5,7 @@ using LibraryManagement.Domain.Interfaces.Repositories;
 using LibraryManagement.Domain.Interfaces.Services;
 using LibraryManagement.Domain.Services;
 using Microsoft.EntityFrameworkCore;
+using LibraryManagement.API.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // AutoMapper
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // DbContext
 builder.Services.AddDbContext<LibraryDbContext>(options =>
