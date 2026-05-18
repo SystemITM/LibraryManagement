@@ -7,10 +7,23 @@ using LibraryManagement.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using LibraryManagement.API.Mappings;
 
+const string AngularCorsPolicy = "AngularCorsPolicy";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Controllers
 builder.Services.AddControllers();
+
+//CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(AngularCorsPolicy, policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 // Swagger / OpenAPI
 builder.Services.AddEndpointsApiExplorer();
@@ -61,6 +74,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(AngularCorsPolicy);
 
 app.UseAuthorization();
 
