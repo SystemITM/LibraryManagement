@@ -91,7 +91,11 @@ public class LoanService : ILoanService
             Status = LoanStatus.Active
         };
 
-        return await _loanRepository.CreateAsync(loan);
+        var createdLoan = await _loanRepository.CreateAsync(loan);
+
+        var loanWithDetails = await _loanRepository.GetByIdAsync(createdLoan.Id);
+
+        return loanWithDetails!;
     }
 
     public async Task<Loan> ReturnLoanAsync(int loanId)
