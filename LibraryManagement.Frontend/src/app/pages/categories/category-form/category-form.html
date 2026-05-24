@@ -1,8 +1,13 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
   <div>
-    <h2 class="mb-1">Nueva categoría</h2>
+    <h2 class="mb-1">
+      {{ isEditMode ? 'Editar categoría' : 'Nueva categoría' }}
+    </h2>
+
     <p class="text-muted mb-0">
-      Registra una nueva categoría para clasificar los libros de la biblioteca.
+      {{ isEditMode
+        ? 'Actualiza la información de la categoría seleccionada.'
+        : 'Registra una nueva categoría para clasificar los libros de la biblioteca.' }}
     </p>
   </div>
 
@@ -11,7 +16,11 @@
   </a>
 </div>
 
-<div class="card shadow-sm">
+<div *ngIf="isLoading" class="alert alert-info">
+  Cargando categoría...
+</div>
+
+<div *ngIf="!isLoading" class="card shadow-sm">
   <div class="card-body">
     <form (ngSubmit)="saveCategory()" #categoryForm="ngForm">
       <div *ngIf="errorMessage" class="alert alert-danger">
@@ -20,6 +29,7 @@
 
       <div class="mb-3">
         <label for="name" class="form-label">Nombre de la categoría</label>
+
         <input
           id="name"
           name="name"
@@ -37,6 +47,7 @@
 
       <div class="mb-3">
         <label for="description" class="form-label">Descripción</label>
+
         <textarea
           id="description"
           name="description"
@@ -56,7 +67,7 @@
           type="submit"
           class="btn btn-primary"
           [disabled]="isSaving || categoryForm.invalid">
-          {{ isSaving ? 'Guardando...' : 'Guardar categoría' }}
+          {{ isSaving ? 'Guardando...' : isEditMode ? 'Actualizar categoría' : 'Guardar categoría' }}
         </button>
 
         <a class="btn btn-outline-secondary" routerLink="/categories">

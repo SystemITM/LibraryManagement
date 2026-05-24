@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">Detalle de categoría</h2>
+    <p class="text-muted mb-0">
+      Consulta la información registrada para la categoría seleccionada.
+    </p>
+  </div>
+
+  <a class="btn btn-outline-secondary" routerLink="/categories">
+    Volver
+  </a>
+</div>
+
+<div *ngIf="isLoading" class="alert alert-info">
+  Cargando categoría...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!isLoading && !errorMessage && category" class="card shadow-sm">
+  <div class="card-header bg-light">
+    <h5 class="mb-0">{{ category.name }}</h5>
+  </div>
+
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-3">Id</dt>
+      <dd class="col-sm-9">{{ category.id }}</dd>
+
+      <dt class="col-sm-3">Nombre</dt>
+      <dd class="col-sm-9">{{ category.name }}</dd>
+
+      <dt class="col-sm-3">Descripción</dt>
+      <dd class="col-sm-9">
+        {{ category.description || 'Sin descripción' }}
+      </dd>
+
+      <dt class="col-sm-3">Libros asociados</dt>
+      <dd class="col-sm-9">{{ category.bookCount }}</dd>
+
+      <dt class="col-sm-3">Fecha de creación</dt>
+      <dd class="col-sm-9">{{ category.createdAt | date:'dd/MM/yyyy HH:mm' }}</dd>
+
+      <dt class="col-sm-3">Última actualización</dt>
+      <dd class="col-sm-9">
+        {{ category.updatedAt ? (category.updatedAt | date:'dd/MM/yyyy HH:mm') : 'Sin actualización' }}
+      </dd>
+    </dl>
+  </div>
+
+  <div class="card-footer d-flex gap-2">
+    <a class="btn btn-primary" [routerLink]="['/categories/edit', category.id]">
+      Editar
+    </a>
+
+    <a class="btn btn-outline-secondary" routerLink="/categories">
+      Volver al listado
+    </a>
+  </div>
+</div>

@@ -6,9 +6,9 @@
     </p>
   </div>
 
- <a class="btn btn-primary" routerLink="/categories/create">
-  Nueva categoría
-</a>
+  <a class="btn btn-primary" routerLink="/categories/create">
+    Nueva categoría
+  </a>
 </div>
 
 <div *ngIf="isLoading" class="alert alert-info">
@@ -23,7 +23,7 @@
   No hay categorías registradas.
 </div>
 
-<div *ngIf="!isLoading && !errorMessage && categories.length > 0" class="card shadow-sm">
+<div *ngIf="!isLoading && categories.length > 0" class="card shadow-sm">
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-hover align-middle mb-0">
@@ -34,16 +34,53 @@
             <th>Descripción</th>
             <th class="text-center">Libros asociados</th>
             <th>Fecha de creación</th>
+            <th class="text-end">Acciones</th>
           </tr>
         </thead>
 
         <tbody>
           <tr *ngFor="let category of categories">
             <td>{{ category.id }}</td>
-            <td class="fw-semibold">{{ category.name }}</td>
-            <td>{{ category.description || 'Sin descripción' }}</td>
-            <td class="text-center">{{ category.bookCount }}</td>
-            <td>{{ category.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+
+            <td class="fw-semibold">
+              {{ category.name }}
+            </td>
+
+            <td>
+              {{ category.description || 'Sin descripción' }}
+            </td>
+
+            <td class="text-center">
+              {{ category.bookCount }}
+            </td>
+
+            <td>
+              {{ category.createdAt | date:'dd/MM/yyyy HH:mm' }}
+            </td>
+
+            <td class="text-end">
+              <div class="btn-group btn-group-sm">
+                <a
+                  class="btn btn-outline-secondary"
+                  [routerLink]="['/categories/detail', category.id]">
+                  Ver
+                </a>
+
+                <a
+                  class="btn btn-outline-primary"
+                  [routerLink]="['/categories/edit', category.id]">
+                  Editar
+                </a>
+
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  [disabled]="deletingId === category.id"
+                  (click)="deleteCategory(category)">
+                  {{ deletingId === category.id ? 'Eliminando...' : 'Eliminar' }}
+                </button>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
