@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" routerLink="/">
+      Library Management
+    </a>
+
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Inicio
+      </a>
+
+      <a class="nav-link" routerLink="/categories" routerLinkActive="active">
+        Categorías
+      </a>
+
+      <a class="nav-link" routerLink="/authors" routerLinkActive="active">
+        Autores
+      </a>
+
+      <a class="nav-link" routerLink="/members" routerLinkActive="active">
+        Miembros
+      </a>
+
+      <a class="nav-link" routerLink="/books" routerLinkActive="active">
+        Libros
+      </a>
+
+      <a class="nav-link" routerLink="/loans" routerLinkActive="active">
+        Préstamos
+      </a>
+    </div>
+  </div>
+</nav>
