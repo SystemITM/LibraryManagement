@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">Detalle de libro</h2>
+    <p class="text-muted mb-0">
+      Consulta la información registrada para el libro seleccionado.
+    </p>
+  </div>
+
+  <a class="btn btn-outline-secondary" routerLink="/books">
+    Volver
+  </a>
+</div>
+
+<div *ngIf="isLoading" class="alert alert-info">
+  Cargando libro...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!isLoading && !errorMessage && book" class="card shadow-sm">
+  <div class="card-header bg-light d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">{{ book.title }}</h5>
+
+    <span
+      class="badge"
+      [ngClass]="book.availableCopies > 0 ? 'bg-success' : 'bg-danger'">
+      {{ book.availableCopies > 0 ? 'Disponible' : 'Sin copias disponibles' }}
+    </span>
+  </div>
+
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-3">Id</dt>
+      <dd class="col-sm-9">{{ book.id }}</dd>
+
+      <dt class="col-sm-3">Título</dt>
+      <dd class="col-sm-9">{{ book.title }}</dd>
+
+      <dt class="col-sm-3">ISBN</dt>
+      <dd class="col-sm-9">{{ book.isbn }}</dd>
+
+      <dt class="col-sm-3">Año de publicación</dt>
+      <dd class="col-sm-9">{{ book.publicationYear }}</dd>
+
+      <dt class="col-sm-3">Categoría</dt>
+      <dd class="col-sm-9">{{ book.categoryName }}</dd>
+
+      <dt class="col-sm-3">Autores</dt>
+      <dd class="col-sm-9">{{ getAuthorsText() }}</dd>
+
+      <dt class="col-sm-3">Total de copias</dt>
+      <dd class="col-sm-9">{{ book.totalCopies }}</dd>
+
+      <dt class="col-sm-3">Copias disponibles</dt>
+      <dd class="col-sm-9">{{ book.availableCopies }}</dd>
+
+      <dt class="col-sm-3">Fecha de creación</dt>
+      <dd class="col-sm-9">
+        {{ book.createdAt | date:'dd/MM/yyyy HH:mm' }}
+      </dd>
+
+      <dt class="col-sm-3">Última actualización</dt>
+      <dd class="col-sm-9">
+        {{ book.updatedAt ? (book.updatedAt | date:'dd/MM/yyyy HH:mm') : 'Sin actualización' }}
+      </dd>
+    </dl>
+  </div>
+
+  <div class="card-footer d-flex gap-2">
+    <a class="btn btn-primary" [routerLink]="['/books/edit', book.id]">
+      Editar
+    </a>
+
+    <a class="btn btn-outline-secondary" routerLink="/books">
+      Volver al listado
+    </a>
+  </div>
+</div>

@@ -15,6 +15,7 @@ import { MemberDetail } from './pages/members/member-detail/member-detail';
 
 import { BookList } from './pages/books/book-list/book-list';
 import { BookForm } from './pages/books/book-form/book-form';
+import { BookDetail } from './pages/books/book-detail/book-detail';
 
 import { LoanList } from './pages/loans/loan-list/loan-list';
 import { NotFound } from './pages/not-found/not-found';
@@ -88,6 +89,10 @@ export const routes: Routes = [
 {
   path: 'books/edit/:id',
   component: BookForm
+},
+{
+  path: 'books/detail/:id',
+  component: BookDetail
 },
 
   {

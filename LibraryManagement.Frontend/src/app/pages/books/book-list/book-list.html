@@ -77,21 +77,27 @@
             </td>
 
             <td class="text-end">
-              <div class="btn-group btn-group-sm">
-                <a
-                  class="btn btn-outline-primary"
-                  [routerLink]="['/books/edit', book.id]">
-                  Editar
-                </a>
+<div class="btn-group btn-group-sm">
+  <a
+    class="btn btn-outline-secondary"
+    [routerLink]="['/books/detail', book.id]">
+    Ver
+  </a>
 
-                <button
-                  type="button"
-                  class="btn btn-outline-danger"
-                  [disabled]="deletingId === book.id"
-                  (click)="deleteBook(book)">
-                  {{ deletingId === book.id ? 'Eliminando...' : 'Eliminar' }}
-                </button>
-              </div>
+  <a
+    class="btn btn-outline-primary"
+    [routerLink]="['/books/edit', book.id]">
+    Editar
+  </a>
+
+  <button
+    type="button"
+    class="btn btn-outline-danger"
+    [disabled]="deletingId === book.id"
+    (click)="deleteBook(book)">
+    {{ deletingId === book.id ? 'Eliminando...' : 'Eliminar' }}
+  </button>
+</div>
             </td>
           </tr>
         </tbody>
