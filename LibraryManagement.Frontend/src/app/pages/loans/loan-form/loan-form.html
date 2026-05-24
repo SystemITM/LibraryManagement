@@ -1,0 +1,105 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">Nuevo préstamo</h2>
+    <p class="text-muted mb-0">
+      Registra el préstamo de un libro a un miembro activo de la biblioteca.
+    </p>
+  </div>
+
+  <a class="btn btn-outline-secondary" routerLink="/loans">
+    Volver
+  </a>
+</div>
+
+<div *ngIf="isLoading" class="alert alert-info">
+  Cargando información necesaria para crear el préstamo...
+</div>
+
+<div *ngIf="!isLoading" class="card shadow-sm">
+  <div class="card-body">
+    <form (ngSubmit)="saveLoan()" #loanForm="ngForm">
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="books.length === 0" class="alert alert-warning">
+        No hay libros con copias disponibles para préstamo.
+      </div>
+
+      <div *ngIf="members.length === 0" class="alert alert-warning">
+        No hay miembros activos disponibles para préstamo.
+      </div>
+
+      <div class="mb-3">
+        <label for="bookId" class="form-label">Libro</label>
+
+        <select
+          id="bookId"
+          name="bookId"
+          class="form-select"
+          [(ngModel)]="loan.bookId"
+          required>
+          <option [ngValue]="0">Seleccione un libro</option>
+
+          <option *ngFor="let book of books" [ngValue]="book.id">
+            {{ book.title }} - {{ book.categoryName }} - Disponibles: {{ book.availableCopies }}
+          </option>
+        </select>
+
+        <div *ngIf="loan.bookId" class="form-text">
+          {{ getSelectedBookInfo() }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="memberId" class="form-label">Miembro</label>
+
+        <select
+          id="memberId"
+          name="memberId"
+          class="form-select"
+          [(ngModel)]="loan.memberId"
+          required>
+          <option [ngValue]="0">Seleccione un miembro</option>
+
+          <option *ngFor="let member of members" [ngValue]="member.id">
+            {{ member.fullName }} - Documento: {{ member.documentNumber }}
+          </option>
+        </select>
+
+        <div class="form-text">
+          Solo aparecen miembros activos.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="dueDate" class="form-label">Fecha límite de devolución</label>
+
+        <input
+          id="dueDate"
+          name="dueDate"
+          type="date"
+          class="form-control"
+          [(ngModel)]="loan.dueDate"
+          required />
+
+        <div class="form-text">
+          La fecha debe ser posterior al día actual.
+        </div>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isSaving || loanForm.invalid || books.length === 0 || members.length === 0">
+          {{ isSaving ? 'Guardando...' : 'Guardar préstamo' }}
+        </button>
+
+        <a class="btn btn-outline-secondary" routerLink="/loans">
+          Cancelar
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

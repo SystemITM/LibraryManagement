@@ -18,6 +18,8 @@ import { BookForm } from './pages/books/book-form/book-form';
 import { BookDetail } from './pages/books/book-detail/book-detail';
 
 import { LoanList } from './pages/loans/loan-list/loan-list';
+import { LoanForm } from './pages/loans/loan-form/loan-form';
+
 import { NotFound } from './pages/not-found/not-found';
 
 
@@ -96,9 +98,14 @@ export const routes: Routes = [
 },
 
   {
-    path: 'loans',
-    component: LoanList
+  path: 'loans',
+  component: LoanList
   },
+  {
+  path: 'loans/create',
+  component: LoanForm
+  },
+
   {
     path: '**',
     component: NotFound
