@@ -11,6 +11,17 @@ const string AngularCorsPolicy = "AngularCorsPolicy";
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AngularCorsPolicy, policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // Controllers
 builder.Services.AddControllers();
 
@@ -56,6 +67,7 @@ builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<ILoanService, LoanService>();
 
 var app = builder.Build();
+
 
 // Apply migrations and seed data
 using (var scope = app.Services.CreateScope())

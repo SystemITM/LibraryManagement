@@ -1,4 +1,52 @@
-<h2>Categorías</h2>
-<div class="alert alert-info">
-  Aquí se mostrará el listado de categorías.
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">Categorías</h2>
+    <p class="text-muted mb-0">
+      Listado de categorías registradas en la biblioteca.
+    </p>
+  </div>
+
+  <button class="btn btn-primary" type="button">
+    Nueva categoría
+  </button>
+</div>
+
+<div *ngIf="isLoading" class="alert alert-info">
+  Cargando categorías...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!isLoading && !errorMessage && categories.length === 0" class="alert alert-warning">
+  No hay categorías registradas.
+</div>
+
+<div *ngIf="!isLoading && !errorMessage && categories.length > 0" class="card shadow-sm">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th class="text-center">Libros asociados</th>
+            <th>Fecha de creación</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let category of categories">
+            <td>{{ category.id }}</td>
+            <td class="fw-semibold">{{ category.name }}</td>
+            <td>{{ category.description || 'Sin descripción' }}</td>
+            <td class="text-center">{{ category.bookCount }}</td>
+            <td>{{ category.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
