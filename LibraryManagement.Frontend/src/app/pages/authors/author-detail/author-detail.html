@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">Detalle de autor</h2>
+    <p class="text-muted mb-0">
+      Consulta la información registrada para el autor seleccionado.
+    </p>
+  </div>
+
+  <a class="btn btn-outline-secondary" routerLink="/authors">
+    Volver
+  </a>
+</div>
+
+<div *ngIf="isLoading" class="alert alert-info">
+  Cargando autor...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!isLoading && !errorMessage && author" class="card shadow-sm">
+  <div class="card-header bg-light">
+    <h5 class="mb-0">{{ author.fullName }}</h5>
+  </div>
+
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-3">Id</dt>
+      <dd class="col-sm-9">{{ author.id }}</dd>
+
+      <dt class="col-sm-3">Nombre</dt>
+      <dd class="col-sm-9">{{ author.firstName }}</dd>
+
+      <dt class="col-sm-3">Apellido</dt>
+      <dd class="col-sm-9">{{ author.lastName }}</dd>
+
+      <dt class="col-sm-3">Nombre completo</dt>
+      <dd class="col-sm-9">{{ author.fullName }}</dd>
+
+      <dt class="col-sm-3">Biografía</dt>
+      <dd class="col-sm-9">
+        {{ author.biography || 'Sin biografía registrada' }}
+      </dd>
+
+      <dt class="col-sm-3">Libros asociados</dt>
+      <dd class="col-sm-9">{{ author.bookCount }}</dd>
+
+      <dt class="col-sm-3">Fecha de creación</dt>
+      <dd class="col-sm-9">
+        {{ author.createdAt | date:'dd/MM/yyyy HH:mm' }}
+      </dd>
+
+      <dt class="col-sm-3">Última actualización</dt>
+      <dd class="col-sm-9">
+        {{ author.updatedAt ? (author.updatedAt | date:'dd/MM/yyyy HH:mm') : 'Sin actualización' }}
+      </dd>
+    </dl>
+  </div>
+
+  <div class="card-footer d-flex gap-2">
+    <a class="btn btn-primary" [routerLink]="['/authors/edit', author.id]">
+      Editar
+    </a>
+
+    <a class="btn btn-outline-secondary" routerLink="/authors">
+      Volver al listado
+    </a>
+  </div>
+</div>
