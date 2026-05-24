@@ -1,12 +1,18 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
+
 import { CategoryList } from './pages/categories/category-list/category-list';
 import { CategoryForm } from './pages/categories/category-form/category-form';
 import { CategoryDetail } from './pages/categories/category-detail/category-detail';
+
 import { AuthorList } from './pages/authors/author-list/author-list';
 import { AuthorForm } from './pages/authors/author-form/author-form';
 import { AuthorDetail } from './pages/authors/author-detail/author-detail';
+
 import { MemberList } from './pages/members/member-list/member-list';
+import { MemberForm } from './pages/members/member-form/member-form';
+import { MemberDetail } from './pages/members/member-detail/member-detail';
+
 import { BookList } from './pages/books/book-list/book-list';
 import { LoanList } from './pages/loans/loan-list/loan-list';
 import { NotFound } from './pages/not-found/not-found';
@@ -50,8 +56,20 @@ export const routes: Routes = [
   component: AuthorDetail
   },
   {
-    path: 'members',
-    component: MemberList
+  path: 'members',
+  component: MemberList
+  },
+  {
+  path: 'members/create',
+  component: MemberForm
+  },
+  {
+  path: 'members/edit/:id',
+  component: MemberForm
+  },
+  {
+  path: 'members/detail/:id',
+  component: MemberDetail
   },
   {
     path: 'books',

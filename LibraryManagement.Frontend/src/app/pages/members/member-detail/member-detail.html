@@ -1,0 +1,85 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">Detalle de miembro</h2>
+    <p class="text-muted mb-0">
+      Consulta la información registrada para el miembro seleccionado.
+    </p>
+  </div>
+
+  <a class="btn btn-outline-secondary" routerLink="/members">
+    Volver
+  </a>
+</div>
+
+<div *ngIf="isLoading" class="alert alert-info">
+  Cargando miembro...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!isLoading && !errorMessage && member" class="card shadow-sm">
+  <div class="card-header bg-light d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">{{ member.fullName }}</h5>
+
+    <span
+      class="badge"
+      [ngClass]="member.isActive ? 'bg-success' : 'bg-secondary'">
+      {{ member.isActive ? 'Activo' : 'Inactivo' }}
+    </span>
+  </div>
+
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-3">Id</dt>
+      <dd class="col-sm-9">{{ member.id }}</dd>
+
+      <dt class="col-sm-3">Nombre</dt>
+      <dd class="col-sm-9">{{ member.firstName }}</dd>
+
+      <dt class="col-sm-3">Apellido</dt>
+      <dd class="col-sm-9">{{ member.lastName }}</dd>
+
+      <dt class="col-sm-3">Nombre completo</dt>
+      <dd class="col-sm-9">{{ member.fullName }}</dd>
+
+      <dt class="col-sm-3">Documento</dt>
+      <dd class="col-sm-9">{{ member.documentNumber }}</dd>
+
+      <dt class="col-sm-3">Correo electrónico</dt>
+      <dd class="col-sm-9">{{ member.email }}</dd>
+
+      <dt class="col-sm-3">Teléfono</dt>
+      <dd class="col-sm-9">{{ member.phoneNumber }}</dd>
+
+      <dt class="col-sm-3">Estado</dt>
+      <dd class="col-sm-9">
+        {{ member.isActive ? 'Activo' : 'Inactivo' }}
+      </dd>
+
+      <dt class="col-sm-3">Préstamos registrados</dt>
+      <dd class="col-sm-9">{{ member.loanCount }}</dd>
+
+      <dt class="col-sm-3">Fecha de creación</dt>
+      <dd class="col-sm-9">
+        {{ member.createdAt | date:'dd/MM/yyyy HH:mm' }}
+      </dd>
+
+      <dt class="col-sm-3">Última actualización</dt>
+      <dd class="col-sm-9">
+        {{ member.updatedAt ? (member.updatedAt | date:'dd/MM/yyyy HH:mm') : 'Sin actualización' }}
+      </dd>
+    </dl>
+  </div>
+
+  <div class="card-footer d-flex gap-2">
+    <a class="btn btn-primary" [routerLink]="['/members/edit', member.id]">
+      Editar
+    </a>
+
+    <a class="btn btn-outline-secondary" routerLink="/members">
+      Volver al listado
+    </a>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">
+      {{ isEditMode ? 'Editar miembro' : 'Nuevo miembro' }}
+    </h2>
+
+    <p class="text-muted mb-0">
+      {{ isEditMode
+        ? 'Actualiza la información del miembro seleccionado.'
+        : 'Registra un nuevo miembro para habilitar préstamos de libros.' }}
+    </p>
+  </div>
+
+  <a class="btn btn-outline-secondary" routerLink="/members">
+    Volver
+  </a>
+</div>
+
+<div *ngIf="isLoading" class="alert alert-info">
+  Cargando miembro...
+</div>
+
+<div *ngIf="!isLoading" class="card shadow-sm">
+  <div class="card-body">
+    <form (ngSubmit)="saveMember()" #memberForm="ngForm">
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="firstName" class="form-label">Nombre</label>
+
+          <input
+            id="firstName"
+            name="firstName"
+            type="text"
+            class="form-control"
+            [(ngModel)]="member.firstName"
+            required
+            maxlength="100"
+            placeholder="Ejemplo: Laura" />
+
+          <div class="form-text">
+            Campo obligatorio. Máximo 100 caracteres.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="lastName" class="form-label">Apellido</label>
+
+          <input
+            id="lastName"
+            name="lastName"
+            type="text"
+            class="form-control"
+            [(ngModel)]="member.lastName"
+            required
+            maxlength="100"
+            placeholder="Ejemplo: Gómez" />
+
+          <div class="form-text">
+            Campo obligatorio. Máximo 100 caracteres.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label for="documentNumber" class="form-label">Documento</label>
+
+          <input
+            id="documentNumber"
+            name="documentNumber"
+            type="text"
+            class="form-control"
+            [(ngModel)]="member.documentNumber"
+            required
+            maxlength="30"
+            placeholder="Ejemplo: 1002003001" />
+
+          <div class="form-text">
+            No debe repetirse.
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="email" class="form-label">Correo electrónico</label>
+
+          <input
+            id="email"
+            name="email"
+            type="email"
+            class="form-control"
+            [(ngModel)]="member.email"
+            required
+            maxlength="150"
+            placeholder="Ejemplo: usuario@email.com" />
+
+          <div class="form-text">
+            No debe repetirse.
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="phoneNumber" class="form-label">Teléfono</label>
+
+          <input
+            id="phoneNumber"
+            name="phoneNumber"
+            type="text"
+            class="form-control"
+            [(ngModel)]="member.phoneNumber"
+            required
+            maxlength="30"
+            placeholder="Ejemplo: 3001234567" />
+
+          <div class="form-text">
+            Campo obligatorio.
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isEditMode" class="form-check form-switch mb-3">
+        <input
+          id="isActive"
+          name="isActive"
+          class="form-check-input"
+          type="checkbox"
+          [(ngModel)]="$any(member).isActive" />
+
+        <label for="isActive" class="form-check-label">
+          Miembro activo
+        </label>
+
+        <div class="form-text">
+          Los miembros inactivos no podrán registrar nuevos préstamos.
+        </div>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isSaving || memberForm.invalid">
+          {{ isSaving ? 'Guardando...' : isEditMode ? 'Actualizar miembro' : 'Guardar miembro' }}
+        </button>
+
+        <a class="btn btn-outline-secondary" routerLink="/members">
+          Cancelar
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
