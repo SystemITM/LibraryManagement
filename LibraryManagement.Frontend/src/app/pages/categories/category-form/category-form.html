@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">Nueva categoría</h2>
+    <p class="text-muted mb-0">
+      Registra una nueva categoría para clasificar los libros de la biblioteca.
+    </p>
+  </div>
+
+  <a class="btn btn-outline-secondary" routerLink="/categories">
+    Volver
+  </a>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <form (ngSubmit)="saveCategory()" #categoryForm="ngForm">
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre de la categoría</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          class="form-control"
+          [(ngModel)]="category.name"
+          required
+          maxlength="100"
+          placeholder="Ejemplo: Inteligencia Artificial" />
+
+        <div class="form-text">
+          El nombre debe ser claro y no debe repetirse.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <textarea
+          id="description"
+          name="description"
+          class="form-control"
+          rows="4"
+          [(ngModel)]="category.description"
+          maxlength="300"
+          placeholder="Descripción breve de la categoría"></textarea>
+
+        <div class="form-text">
+          Campo opcional. Máximo 300 caracteres.
+        </div>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isSaving || categoryForm.invalid">
+          {{ isSaving ? 'Guardando...' : 'Guardar categoría' }}
+        </button>
+
+        <a class="btn btn-outline-secondary" routerLink="/categories">
+          Cancelar
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

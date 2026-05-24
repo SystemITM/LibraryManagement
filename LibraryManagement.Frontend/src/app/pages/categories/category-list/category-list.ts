@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 import { CategoryService } from '../../../core/services/category.service';
 import { CategoryResponse } from '../../../core/models/response/category-response';
 
 @Component({
   selector: 'app-category-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './category-list.html',
   styleUrl: './category-list.css'
 })
