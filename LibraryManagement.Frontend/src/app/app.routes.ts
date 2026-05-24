@@ -14,6 +14,8 @@ import { MemberForm } from './pages/members/member-form/member-form';
 import { MemberDetail } from './pages/members/member-detail/member-detail';
 
 import { BookList } from './pages/books/book-list/book-list';
+import { BookForm } from './pages/books/book-form/book-form';
+
 import { LoanList } from './pages/loans/loan-list/loan-list';
 import { NotFound } from './pages/not-found/not-found';
 
@@ -23,6 +25,7 @@ export const routes: Routes = [
     path: '',
     component: Home
   },
+
   {
     path: 'categories',
     component: CategoryList
@@ -39,6 +42,7 @@ export const routes: Routes = [
     path: 'categories/detail/:id',
     component: CategoryDetail
   },
+
   {
   path: 'authors',
   component: AuthorList
@@ -55,6 +59,7 @@ export const routes: Routes = [
   path: 'authors/detail/:id',
   component: AuthorDetail
   },
+
   {
   path: 'members',
   component: MemberList
@@ -71,10 +76,20 @@ export const routes: Routes = [
   path: 'members/detail/:id',
   component: MemberDetail
   },
-  {
-    path: 'books',
-    component: BookList
-  },
+
+ {
+  path: 'books',
+  component: BookList
+},
+{
+  path: 'books/create',
+  component: BookForm
+},
+{
+  path: 'books/edit/:id',
+  component: BookForm
+},
+
   {
     path: 'loans',
     component: LoanList

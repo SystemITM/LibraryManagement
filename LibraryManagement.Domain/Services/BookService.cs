@@ -48,13 +48,14 @@ public class BookService : IBookService
         }
 
         book.BookAuthors = normalizedAuthorIds
-            .Select(authorId => new BookAuthor
-            {
-                AuthorId = authorId
-            })
-            .ToList();
+    .Select(authorId => new BookAuthor { AuthorId = authorId })
+    .ToList();
 
-        return await _bookRepository.CreateAsync(book);
+        var createdBook = await _bookRepository.CreateAsync(book);
+
+        var createdBookWithDetails = await _bookRepository.GetByIdAsync(createdBook.Id);
+
+        return createdBookWithDetails!;
     }
 
     public async Task<Book> UpdateAsync(int id, Book book, IEnumerable<int> authorIds)
