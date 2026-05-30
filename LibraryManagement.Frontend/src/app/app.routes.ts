@@ -16,6 +16,7 @@ import { MemberDetail } from './pages/members/member-detail/member-detail';
 import { BookList } from './pages/books/book-list/book-list';
 import { BookForm } from './pages/books/book-form/book-form';
 import { BookDetail } from './pages/books/book-detail/book-detail';
+import { LoanDetail } from './pages/loans/loan-detail/loan-detail';
 
 import { LoanList } from './pages/loans/loan-list/loan-list';
 import { LoanForm } from './pages/loans/loan-form/loan-form';
@@ -100,11 +101,15 @@ export const routes: Routes = [
   {
   path: 'loans',
   component: LoanList
-  },
-  {
+},
+{
   path: 'loans/create',
   component: LoanForm
-  },
+},
+{
+  path: 'loans/detail/:id',
+  component: LoanDetail
+},
 
   {
     path: '**',

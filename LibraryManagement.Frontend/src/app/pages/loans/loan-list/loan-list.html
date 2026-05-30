@@ -72,24 +72,30 @@
 
             <td class="text-end">
               <div class="btn-group btn-group-sm">
-                <button
-                  *ngIf="canReturn(loan)"
-                  type="button"
-                  class="btn btn-outline-success"
-                  [disabled]="processingId === loan.id"
-                  (click)="returnLoan(loan)">
-                  {{ processingId === loan.id ? 'Procesando...' : 'Devolver' }}
-                </button>
+  <a
+    class="btn btn-outline-secondary"
+    [routerLink]="['/loans/detail', loan.id]">
+    Ver
+  </a>
 
-                <button
-                  *ngIf="canDelete(loan)"
-                  type="button"
-                  class="btn btn-outline-danger"
-                  [disabled]="processingId === loan.id"
-                  (click)="deleteLoan(loan)">
-                  {{ processingId === loan.id ? 'Eliminando...' : 'Eliminar' }}
-                </button>
-              </div>
+  <button
+    *ngIf="canReturn(loan)"
+    type="button"
+    class="btn btn-outline-success"
+    [disabled]="processingId === loan.id"
+    (click)="returnLoan(loan)">
+    {{ processingId === loan.id ? 'Procesando...' : 'Devolver' }}
+  </button>
+
+  <button
+    *ngIf="canDelete(loan)"
+    type="button"
+    class="btn btn-outline-danger"
+    [disabled]="processingId === loan.id"
+    (click)="deleteLoan(loan)">
+    {{ processingId === loan.id ? 'Eliminando...' : 'Eliminar' }}
+  </button>
+</div>
             </td>
           </tr>
         </tbody>

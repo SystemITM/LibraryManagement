@@ -1,0 +1,96 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">Detalle de préstamo</h2>
+    <p class="text-muted mb-0">
+      Consulta la información registrada para el préstamo seleccionado.
+    </p>
+  </div>
+
+  <a class="btn btn-outline-secondary" routerLink="/loans">
+    Volver
+  </a>
+</div>
+
+<div *ngIf="isLoading" class="alert alert-info">
+  Cargando préstamo...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!isLoading && !errorMessage && loan" class="card shadow-sm">
+  <div class="card-header bg-light d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">
+      Préstamo #{{ loan.id }}
+    </h5>
+
+    <span class="badge" [ngClass]="getStatusBadgeClass(loan.status)">
+      {{ getStatusText(loan.status) }}
+    </span>
+  </div>
+
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-3">Id</dt>
+      <dd class="col-sm-9">{{ loan.id }}</dd>
+
+      <dt class="col-sm-3">Libro</dt>
+      <dd class="col-sm-9">{{ loan.bookTitle }}</dd>
+
+      <dt class="col-sm-3">Id del libro</dt>
+      <dd class="col-sm-9">{{ loan.bookId }}</dd>
+
+      <dt class="col-sm-3">Miembro</dt>
+      <dd class="col-sm-9">{{ loan.memberFullName }}</dd>
+
+      <dt class="col-sm-3">Id del miembro</dt>
+      <dd class="col-sm-9">{{ loan.memberId }}</dd>
+
+      <dt class="col-sm-3">Fecha del préstamo</dt>
+      <dd class="col-sm-9">
+        {{ loan.loanDate | date:'dd/MM/yyyy HH:mm' }}
+      </dd>
+
+      <dt class="col-sm-3">Fecha límite</dt>
+      <dd class="col-sm-9">
+        {{ loan.dueDate | date:'dd/MM/yyyy' }}
+      </dd>
+
+      <dt class="col-sm-3">Fecha de devolución</dt>
+      <dd class="col-sm-9">
+        {{ loan.returnDate ? (loan.returnDate | date:'dd/MM/yyyy HH:mm') : 'Pendiente' }}
+      </dd>
+
+      <dt class="col-sm-3">Estado</dt>
+      <dd class="col-sm-9">
+        {{ getStatusText(loan.status) }}
+      </dd>
+
+      <dt class="col-sm-3">Fecha de creación</dt>
+      <dd class="col-sm-9">
+        {{ loan.createdAt | date:'dd/MM/yyyy HH:mm' }}
+      </dd>
+
+      <dt class="col-sm-3">Última actualización</dt>
+      <dd class="col-sm-9">
+        {{ loan.updatedAt ? (loan.updatedAt | date:'dd/MM/yyyy HH:mm') : 'Sin actualización' }}
+      </dd>
+    </dl>
+  </div>
+
+  <div class="card-footer d-flex gap-2">
+    <button
+      *ngIf="canReturn()"
+      type="button"
+      class="btn btn-success"
+      [disabled]="isProcessing"
+      (click)="returnLoan()">
+      {{ isProcessing ? 'Procesando...' : 'Registrar devolución' }}
+    </button>
+
+    <a class="btn btn-outline-secondary" routerLink="/loans">
+      Volver al listado
+    </a>
+  </div>
+</div>
