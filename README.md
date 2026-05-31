@@ -324,6 +324,7 @@ GET     /api/loans/{id}
 POST    /api/loans
 PUT     /api/loans/{id}/return
 DELETE  /api/loans/{id}
+
 Estructura general del repositorio
 LibraryManagement
 ├── LibraryManagement.Domain
