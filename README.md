@@ -225,7 +225,7 @@ Ejecutar el backend
 
 Abrir la solución en Visual Studio Community:
 
-LibraryManagement.sln
+LibraryManagement.slnx
 
 Establecer como proyecto de inicio:
 
